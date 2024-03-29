@@ -3,12 +3,11 @@
 ###############################################################################
 
 library(DHARMa) # for diagnostics of LMMs
-library(lme4) # for building LMMs using overloaded lmer from lme4 
+library(lmerTest) # for building LMMs using overloaded lmer from lme4 
 library(broom.mixed) # for extracting estimates, conf. intervals, and p-values from LMMs
 library(ggpubr) # for creating multi-panel figures
 library(ggplot2) # for plots
 library(ggsci) # for npg palette
-library(car) # for Type II Wald chi-square tests
 
 ###############################################################################
 # Data manipulation
