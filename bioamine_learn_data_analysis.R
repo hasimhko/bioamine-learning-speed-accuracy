@@ -8,6 +8,7 @@ library(broom.mixed) # for extracting estimates, conf. intervals, and p-values f
 library(ggpubr) # for creating multi-panel figures
 library(ggplot2) # for plots
 library(ggsci) # for npg palette
+library(dplyr) # for wrangling datasets
 
 ###############################################################################
 # Data manipulation
