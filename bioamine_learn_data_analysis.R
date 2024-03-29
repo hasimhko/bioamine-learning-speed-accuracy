@@ -201,23 +201,13 @@ indM_est <- tidy(indM_mod, conf.int = TRUE, effects = "fixed") %>%
 y_label <- rev(c("DA" = "DA", 
                  "5-HT" = "5-HT", 
                  "OA" = "OA", 
-                 "TA" = "TA", 
                  "Glu" = "Glu", 
-                 "age" = "Age", 
                  "DA:Ser" = "DA \u00D7 5-HT",
                  "DA:OA" = "DA \u00D7 OA", 
-                 "DA:TA" = "DA \u00D7 TA", 
                  "DA:Glu" = "DA \u00D7 Glu", 
-                 "DA:age" = "DA \u00D7 Age", 
                  "Ser:OA" = "5-HT \u00D7 OA", 
-                 "Ser:TA" = "5-HT \u00D7 TA", 
                  "Ser:Glu" = "5-HT \u00D7 Glu", 
-                 "Ser:age" = "5-HT \u00D7 Age", 
-                 "OA:TA" = "OA \u00D7 TA", 
-                 "OA:Glu" = "OA \u00D7 Glu", 
-                 "TA:Glu" = "TA \u00D7 Glu", 
-                 "TA:age" = "TA \u00D7 Age", 
-                 "Glu:age" = "Glu \u00D7 Age"))
+                 "OA:Glu" = "OA \u00D7 Glu"))
 
 # custom ggplot theme
 lmm_plot_theme <- theme(panel.background=element_blank(), 
@@ -243,7 +233,6 @@ socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
-  xlim(-25, 30) +
   lmm_plot_theme +
   theme(axis.text.y = 
           element_text(face = c(rep('plain', 4), 'bold', rep('plain', 4), 'bold', rep('plain', 11)),
@@ -257,7 +246,6 @@ indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
-  xlim(-25, 30) +
   lmm_plot_theme +
   theme(axis.text.y = 
           element_text(face = c(rep('plain', 4), 'bold', rep('plain', 4), 'bold', rep('plain', 11)),
@@ -271,7 +259,6 @@ socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
-  xlim(-25, 30) +
   lmm_plot_theme +
   theme(axis.text.y = 
           element_text(face = c(rep('plain', 4), 'bold', rep('plain', 4), 'bold', rep('plain', 11)),
@@ -285,7 +272,6 @@ indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
-  xlim(-25, 30) +
   lmm_plot_theme +
   theme(axis.text.y = 
           element_text(face = c(rep('plain', 4), 'bold', rep('plain', 4), 'bold', rep('plain', 11)),
