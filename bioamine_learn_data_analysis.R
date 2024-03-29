@@ -163,20 +163,43 @@ add_sig_sym <- function(pvalues){
 
 # extracting estimates, confidence intervals, and p-values from LMMs
 socS_est <- tidy(socS_mod, conf.int = TRUE, effects = "fixed") %>%
-  mutate(p.stars = add_sig_sym(p.value)) %>% filter(term != "(Intercept)")
+  mutate(p.stars = add_sig_sym(p.value)) %>% 
+  filter(term != "(Intercept)") %>%
+  mutate(group = ifelse(estimate > 0, "pos", "neg"))
 indS_est <- tidy(indS_mod, conf.int = TRUE, effects = "fixed") %>%
-  mutate(p.stars = add_sig_sym(p.value)) %>% filter(term != "(Intercept)")
+  mutate(p.stars = add_sig_sym(p.value)) %>% 
+  filter(term != "(Intercept)") %>%
+  mutate(group = ifelse(estimate > 0, "pos", "neg"))
 socM_est <- tidy(socM_mod, conf.int = TRUE, effects = "fixed") %>%
-  mutate(p.stars = add_sig_sym(p.value)) %>% filter(term != "(Intercept)")
+  mutate(p.stars = add_sig_sym(p.value)) %>% 
+  filter(term != "(Intercept)") %>%
+  mutate(group = ifelse(estimate > 0, "pos", "neg"))
 indM_est <- tidy(indM_mod, conf.int = TRUE, effects = "fixed") %>%
-  mutate(p.stars = add_sig_sym(p.value)) %>% filter(term != "(Intercept)")
+  mutate(p.stars = add_sig_sym(p.value)) %>% 
+  filter(term != "(Intercept)") %>%
+  mutate(group = ifelse(estimate > 0, "pos", "neg"))
 
 # term labels for y-axis in plots
-est_labe <- rev(c("DA", "5-HT", "OA", "TA", "Glu", "age", "DA \u00D7 5-HT",
-                  "DA \u00D7 OA", "DA \u00D7 TA", "DA \u00D7 Glu", "DA \u00D7 age", 
-                  "5-HT \u00D7 OA", "5-HT \u00D7 TA", "5-HT \u00D7 Glu", 
-                  "5-HT \u00D7 age", "OA \u00D7 TA", "OA \u00D7 Glu", "OA \u00D7 age",
-                  "TA \u00D7 Glu", "TA \u00D7 age", "Glu \u00D7 age"))
+y_label <- rev(c("DA" = "DA", 
+                 "5-HT" = "5-HT", 
+                 "OA" = "OA", 
+                 "TA" = "TA", 
+                 "Glu" = "Glu", 
+                 "age" = "Age", 
+                 "DA:Ser" = "DA \u00D7 5-HT",
+                 "DA:OA" = "DA \u00D7 OA", 
+                 "DA:TA" = "DA \u00D7 TA", 
+                 "DA:Glu" = "DA \u00D7 Glu", 
+                 "DA:age" = "DA \u00D7 Age", 
+                 "Ser:OA" = "5-HT \u00D7 OA", 
+                 "Ser:TA" = "5-HT \u00D7 TA", 
+                 "Ser:Glu" = "5-HT \u00D7 Glu", 
+                 "Ser:age" = "5-HT \u00D7 Age", 
+                 "OA:TA" = "OA \u00D7 TA", 
+                 "OA:Glu" = "OA \u00D7 Glu", 
+                 "TA:Glu" = "TA \u00D7 Glu", 
+                 "TA:age" = "TA \u00D7 Age", 
+                 "Glu:age" = "Glu \u00D7 Age"))
 
 # custom ggplot theme
 lmm_plot_theme <- theme(panel.background=element_blank(), 
@@ -201,7 +224,7 @@ socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
-  scale_y_discrete(labels=est_labe) +
+  scale_y_discrete(limits = names(y_label), labels = y_label) +
   xlim(-25, 30) +
   lmm_plot_theme +
   theme(axis.text.y = 
@@ -215,7 +238,7 @@ indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
-  scale_y_discrete(labels=est_labe) +
+  scale_y_discrete(limits = names(y_label), labels = y_label) +
   xlim(-25, 30) +
   lmm_plot_theme +
   theme(axis.text.y = 
@@ -229,7 +252,7 @@ socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
-  scale_y_discrete(labels=est_labe) +
+  scale_y_discrete(limits = names(y_label), labels = y_label) +
   xlim(-25, 30) +
   lmm_plot_theme +
   theme(axis.text.y = 
@@ -243,7 +266,7 @@ indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
-  scale_y_discrete(labels=est_labe) +
+  scale_y_discrete(limits = names(y_label), labels = y_label) +
   xlim(-25, 30) +
   lmm_plot_theme +
   theme(axis.text.y = 
