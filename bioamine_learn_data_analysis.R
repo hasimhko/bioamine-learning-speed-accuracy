@@ -20,8 +20,6 @@ als <- read.csv("bioamine_learn_data.csv")
 # re-assign factors 
 als$hive <- as.factor(als$hive)
 als$trial <- as.factor(als$trial)
-als$learnSpd <- as.factor(als$learnSpd)
-als$learnAcc <- as.factor(als$learnAcc)
 
 # standardize data for LMMs
 scaled_als <- data.frame("DA" = scale(als$DA, TRUE, TRUE),
@@ -35,44 +33,7 @@ scaled_als <- data.frame("DA" = scale(als$DA, TRUE, TRUE),
                          "indS" = scale(als$indS, TRUE, TRUE),
                          "age" = scale(als$age, TRUE, TRUE),
                          "hive" = als$hive,
-                         "trial" = als$trial,
-                         "learnSpd" = als$learnSpd,
-                         "learnAcc" = als$learnAcc)
-
-###############################################################################
-# Assessing learnSpd-learnAcc trade-off with Fisher's and plotting proportions
-###############################################################################
-
-# proportions
-prop.table(table(als$learnAcc, als$learnSpd), margin=2)
-
-# Fisher's exact test
-fisher.test(als$learnAcc, als$learnSpd)
-
-# custom annotations for ggplot
-## significance of Fisher's exact test  
-sig <- grobTree(textGrob("**", x=0,  y=0.95, hjust=-8.8,
-                         gp=gpar(col="black", fontsize=14)))
-# proportion of accurate individual learners that are also fast individual learners
-indv_per <- grobTree(textGrob("33.33%", x=0.28,  y=0.77,
-                              gp=gpar(col="black", fontsize=12)))
-# proportion of accurate social learners that are also fast social learners
-soc_per <- grobTree(textGrob("15.38%", x=0.73,  y=0.11,
-                             gp=gpar(col="black", fontsize=12)))
-
-# plotting and saving the barplot
-png("manuscript/Prop_learnSpd_indivSocLearnSpeed.png", width=1500, height=1000, res=300)
-ggplot(als, aes(x = as.factor(learnSpd), fill = as.factor(learnAcc))) + 
-  labs(y="Proportions", x="Learning speed", fill="Learning accuracy") +
-  ylim(c(0, 1.05)) +
-  scale_x_discrete(labels=c("Individual", "Social")) + 
-  scale_fill_npg(labels=c("Individual", "Social")) +
-  geom_bar(position = "fill") + 
-  annotation_custom(sig) +
-  annotation_custom(indv_per) +
-  annotation_custom(soc_per) +
-  theme()
-dev.off()
+                         "trial" = als$trial)
 
 ###############################################################################
 # Building LMMs with interactions
@@ -277,7 +238,6 @@ indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars
   theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
                                    size = c(8, 6, 8, rep(6, 7))))
 
-# saving figure in png format
 png("lmm_estimates.png", width=2000, height=2000, res=300)
 # arranging aa plots in one figure and removing x-axis title
 comb_plots <- ggarrange(indS_plot + rremove("ylab") + rremove("xlab"), 
