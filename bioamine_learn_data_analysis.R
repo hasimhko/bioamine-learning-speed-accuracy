@@ -154,11 +154,21 @@ anova(indM_mod, indM_mod2, test = "LRT")
 # Extracting and plotting fixed effects from LMMs
 ################################################################################
 
+add_sig_sym <- function(pvalues){
+  ifelse(pvalues < 0.001, "***", 
+         ifelse(pvalues < 0.01, "**",
+                ifelse(pvalues < 0.05, "*", NA)))
+}
+
 # extracting estimates, confidence intervals, and p-values from LMMs
-socS_est <- tidy(socS_mod, conf.int = TRUE, effects = "fixed")
-indS_est <- tidy(indS_mod, conf.int = TRUE, effects = "fixed")
-socM_est <- tidy(socM_mod, conf.int = TRUE, effects = "fixed")
-indM_est <- tidy(indM_mod, conf.int = TRUE, effects = "fixed")
+socS_est <- tidy(socS_mod, conf.int = TRUE, effects = "fixed") %>%
+  mutate(p.stars = add_sig_sym(p.value))
+indS_est <- tidy(indS_mod, conf.int = TRUE, effects = "fixed") %>%
+  mutate(p.stars = add_sig_sym(p.value))
+socM_est <- tidy(socM_mod, conf.int = TRUE, effects = "fixed") %>%
+  mutate(p.stars = add_sig_sym(p.value))
+indM_est <- tidy(indM_mod, conf.int = TRUE, effects = "fixed") %>%
+  mutate(p.stars = add_sig_sym(p.value))
 
 # term labels for y-axis in plots
 est_labe <- rev(c("DA", "5-HT", "OA", "TA", "Glu", "age", "DA \u00D7 5-HT",
