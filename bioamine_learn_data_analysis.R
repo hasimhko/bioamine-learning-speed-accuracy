@@ -162,13 +162,13 @@ add_sig_sym <- function(pvalues){
 
 # extracting estimates, confidence intervals, and p-values from LMMs
 socS_est <- tidy(socS_mod, conf.int = TRUE, effects = "fixed") %>%
-  mutate(p.stars = add_sig_sym(p.value))
+  mutate(p.stars = add_sig_sym(p.value)) %>% filter(term != "(Intercept)")
 indS_est <- tidy(indS_mod, conf.int = TRUE, effects = "fixed") %>%
-  mutate(p.stars = add_sig_sym(p.value))
+  mutate(p.stars = add_sig_sym(p.value)) %>% filter(term != "(Intercept)")
 socM_est <- tidy(socM_mod, conf.int = TRUE, effects = "fixed") %>%
-  mutate(p.stars = add_sig_sym(p.value))
+  mutate(p.stars = add_sig_sym(p.value)) %>% filter(term != "(Intercept)")
 indM_est <- tidy(indM_mod, conf.int = TRUE, effects = "fixed") %>%
-  mutate(p.stars = add_sig_sym(p.value))
+  mutate(p.stars = add_sig_sym(p.value)) %>% filter(term != "(Intercept)")
 
 # term labels for y-axis in plots
 est_labe <- rev(c("DA", "5-HT", "OA", "TA", "Glu", "age", "DA \u00D7 5-HT",
