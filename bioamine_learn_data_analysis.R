@@ -141,7 +141,7 @@ indM_mod2@optinfo$conv # check for optimizer convergence
 # Comparing LMMs with interactions with the ones without interactions using LRTs
 ################################################################################
 
-anova(socS_mod, socS_mod2, test = "LRT")
+anova(refitML(socS_mod), socS_mod2, test = "LRT")
 anova(indS_mod, indS_mod2, test = "LRT")
 anova(socM_mod, socM_mod2, test = "LRT")
 anova(indM_mod, indM_mod2, test = "LRT")
