@@ -234,9 +234,8 @@ socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   lmm_plot_theme +
-  theme(axis.text.y = 
-          element_text(face = c(rep('plain', 4), 'bold', rep('plain', 4), 'bold', rep('plain', 11)),
-                       size = c(rep(6, 4), 8, rep(6, 4), 8, rep(6, 11))))
+  theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
+                       size = c(8, 6, 8, rep(6, 7))))
 
 # indS LMM term estimates and significance
 indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
@@ -247,9 +246,8 @@ indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   lmm_plot_theme +
-  theme(axis.text.y = 
-          element_text(face = c(rep('plain', 4), 'bold', rep('plain', 4), 'bold', rep('plain', 11)),
-                       size = c(rep(6, 4), 8, rep(6, 4), 8, rep(6, 11))))
+  theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
+                                   size = c(8, 6, 8, rep(6, 7))))
 
 # socM LMM term estimates and significance
 socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
@@ -260,9 +258,8 @@ socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   lmm_plot_theme +
-  theme(axis.text.y = 
-          element_text(face = c(rep('plain', 4), 'bold', rep('plain', 4), 'bold', rep('plain', 11)),
-                       size = c(rep(6, 4), 8, rep(6, 4), 8, rep(6, 11))))
+  theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
+                                   size = c(8, 6, 8, rep(6, 7))))
 
 # indM LMM term estimates and significance
 indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
@@ -273,9 +270,8 @@ indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   lmm_plot_theme +
-  theme(axis.text.y = 
-          element_text(face = c(rep('plain', 4), 'bold', rep('plain', 4), 'bold', rep('plain', 11)),
-                       size = c(rep(6, 4), 8, rep(6, 4), 8, rep(6, 11))))
+  theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
+                                   size = c(8, 6, 8, rep(6, 7))))
 
 # saving figure in png format
 png("lmm_estimates.png", width=2000, height=2000, res=300)
