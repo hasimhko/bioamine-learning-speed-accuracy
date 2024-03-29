@@ -48,6 +48,8 @@ socS_mod <- lmer(socS ~ (DA + Ser + OA + TA + Glu + age)^2
                  control = lmerControl(optimizer = "bobyqa",
                              optCtrl = list(maxfun = 1e6)))
 
+socS_mod@optinfo$conv # check for optimizer convergence
+
 socS_resid <- simulateResiduals(socS_mod, n=1000) # simulate residuals
 testDispersion(socS_resid) # check for over-/underdispersion
 testOutliers(socS_resid) # check outliers
@@ -59,6 +61,8 @@ indS_mod <- lmer(indS ~ (DA + Ser + OA + TA + Glu + age)^2
                  data = scaled_als,
                  control = lmerControl(optimizer = "bobyqa",
                                        optCtrl = list(maxfun = 1e6)))
+
+indS_mod@optinfo$conv # check for optimizer convergence
 
 indS_resid <- simulateResiduals(indS_mod, n=1000)
 testDispersion(indS_resid)
@@ -72,6 +76,8 @@ socM_mod <- lmer(socM ~ (DA + Ser + OA + TA + Glu + age)^2
                  control = lmerControl(optimizer = "bobyqa",
                                        optCtrl = list(maxfun = 1e6)))
 
+socM_mod@optinfo$conv # check for optimizer convergence
+
 socM_resid <- simulateResiduals(socM_mod, n=1000)
 testDispersion(socM_resid)
 testOutliers(socM_resid)
@@ -83,6 +89,8 @@ indM_mod <- lmer(indM ~ (DA + Ser + OA + TA + Glu + age)^2
                  data = scaled_als,
                  control = lmerControl(optimizer = "bobyqa",
                                        optCtrl = list(maxfun = 1e6)))
+
+indM_mod@optinfo$conv # check for optimizer convergence
 
 indM_resid <- simulateResiduals(indM_mod, n=1000)
 testDispersion(indM_resid)
@@ -100,12 +108,16 @@ socS_mod2 <- lmer(socS ~ DA + Ser + OA + TA + Glu + age
                   control = lmerControl(optimizer = "bobyqa",
                                         optCtrl = list(maxfun = 1e6)))
 
+socS_mod2@optinfo$conv # check for optimizer convergence
+
 indS_mod2 <- lmer(indS ~ DA + Ser + OA + TA + Glu + age
                   + (DA + Ser + OA + TA + Glu|hive)
                   + (DA + Ser + OA + TA + Glu|trial),
                   data = scaled_als,
                   control = lmerControl(optimizer = "bobyqa",
                                         optCtrl = list(maxfun = 1e6)))
+
+indS_mod2@optinfo$conv # check for optimizer convergence
 
 socM_mod2 <- lmer(socM ~ DA + Ser + OA + TA + Glu + age
                   + (DA + Ser + OA + TA + Glu|hive)
@@ -114,12 +126,16 @@ socM_mod2 <- lmer(socM ~ DA + Ser + OA + TA + Glu + age
                   control = lmerControl(optimizer = "bobyqa",
                                        optCtrl = list(maxfun = 1e6)))
 
+socM_mod2@optinfo$conv # check for optimizer convergence
+
 indM_mod2 <- lmer(indM ~ DA + Ser + OA + TA + Glu + age
                   + (DA + Ser + OA + TA + Glu|hive)
                   + (DA + Ser + OA + TA + Glu|trial),
                   data = scaled_als,
                   control = lmerControl(optimizer = "bobyqa",
                                         optCtrl = list(maxfun = 1e6)))
+
+indM_mod2@optinfo$conv # check for optimizer convergence
 
 ################################################################################
 # Comparing LMMs with interactions with the ones without interactions using LRTs
