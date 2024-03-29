@@ -227,8 +227,8 @@ lmm_plot_theme <- theme(panel.background=element_blank(),
 
 # socS LMM term estimates and significance
 socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
-  geom_point(size=0.7) + ylab("") + xlab("Estimate") + 
-  geom_text(vjust=0, nudge_y=-0.1, size=2.5, color=1) +
+  geom_point(size=1.25) + ylab("") + xlab("Estimate") + 
+  geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
@@ -240,8 +240,8 @@ socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars
 
 # indS LMM term estimates and significance
 indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
-  geom_point(size=0.7) + ylab("") + xlab("Estimate") + 
-  geom_text(vjust=0, nudge_y=-0.1, size=2.5, color=1) +
+  geom_point(size=1.25) + ylab("") + xlab("Estimate") + 
+  geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
@@ -253,8 +253,8 @@ indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars
 
 # socM LMM term estimates and significance
 socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
-  geom_point(size=0.7) + ylab("") + xlab("Estimate") + 
-  geom_text(vjust=0, nudge_y=-0.1, size=2.5, color=1) +
+  geom_point(size=1.25) + ylab("") + xlab("Estimate") + 
+  geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
@@ -266,8 +266,8 @@ socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars
 
 # indM LMM term estimates and significance
 indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
-  geom_point(size=0.7) + ylab("") + xlab("Estimate") + 
-  geom_text(vjust=0, nudge_y=-0.1, size=2.5, color=1) +
+  geom_point(size=1.25) + ylab("") + xlab("Estimate") + 
+  geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
