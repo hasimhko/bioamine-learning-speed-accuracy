@@ -151,14 +151,14 @@ anova(socM_mod, socM_mod2, test = "LRT")
 anova(indM_mod, indM_mod2, test = "LRT")
 
 ################################################################################
-# Plotting estimates from LMMs
+# Extracting and plotting fixed effects from LMMs
 ################################################################################
 
 # extracting estimates, confidence intervals, and p-values from LMMs
-socS_est <- data.frame(plot_model(socS_mod)$data)
-indS_est <- data.frame(plot_model(indS_mod)$data)
-socM_est <- data.frame(plot_model(socM_mod)$data)
-indM_est <- data.frame(plot_model(indM_mod)$data)
+socS_est <- tidy(socS_mod, conf.int = TRUE, effects = "fixed")
+indS_est <- tidy(indS_mod, conf.int = TRUE, effects = "fixed")
+socM_est <- tidy(socM_mod, conf.int = TRUE, effects = "fixed")
+indM_est <- tidy(indM_mod, conf.int = TRUE, effects = "fixed")
 
 # term labels for y-axis in plots
 est_labe <- rev(c("DA", "5-HT", "OA", "TA", "Glu", "age", "DA \u00D7 5-HT",
