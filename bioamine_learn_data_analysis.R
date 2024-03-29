@@ -4,7 +4,7 @@
 
 library(DHARMa) # for diagnostics of LMMs
 library(lme4) # for building LMMs
-library(sjPlot) # for extracting estimates, conf. intervals, and p-values from LMMs
+library(broom.mixed) # for extracting estimates, conf. intervals, and p-values from LMMs
 library(ggpubr) # for creating multi-panel figures
 library(ggplot2) # for plots
 library(ggsci) # for npg palette
