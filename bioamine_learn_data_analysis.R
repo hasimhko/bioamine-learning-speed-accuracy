@@ -233,6 +233,7 @@ socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
+  ggtitle("Social Learning Speed") +
   lmm_plot_theme +
   theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
                        size = c(8, 6, 8, rep(6, 7))))
@@ -245,6 +246,7 @@ indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
+  ggtitle("Individual Learning Speed") +
   lmm_plot_theme +
   theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
                                    size = c(8, 6, 8, rep(6, 7))))
@@ -257,6 +259,7 @@ socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
+  ggtitle("Social Learning Accuracy") +
   lmm_plot_theme +
   theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
                                    size = c(8, 6, 8, rep(6, 7))))
@@ -269,6 +272,7 @@ indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
   scale_color_npg(guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
+  ggtitle("Individual Learning Accuracy") +
   lmm_plot_theme +
   theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
                                    size = c(8, 6, 8, rep(6, 7))))
