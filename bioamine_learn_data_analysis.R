@@ -151,22 +151,6 @@ anova(socM_mod, socM_mod2, test = "LRT")
 anova(indM_mod, indM_mod2, test = "LRT")
 
 ################################################################################
-# LMMs with interactions are sig. better -- getting estimates and p-values
-################################################################################
-
-# summary of models
-summary(socS_mod) 
-summary(indS_mod)
-summary(socM_mod)
-summary(indM_mod)
-
-# Type II Wald test of significance of estimates
-Anova(socS_mod) 
-Anova(indS_mod)
-Anova(socM_mod)
-Anova(indM_mod)
-
-################################################################################
 # Plotting estimates from LMMs
 ################################################################################
 
