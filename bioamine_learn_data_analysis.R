@@ -78,10 +78,14 @@ dev.off()
 # Building LMMs with interactions
 ###############################################################################
 
+set.seed(1)
+
 socS_mod <- lmer(socS ~ (DA + Ser + OA + TA + Glu + age)^2
                  + (DA + Ser + OA + TA + Glu |hive)
                  + (DA + Ser + OA + TA + Glu |trial),
-                 data = scaled_als)
+                 data = scaled_als, 
+                 control = lmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 1e6)))
 
 socS_resid <- simulateResiduals(socS_mod, n=1000) # simulate residuals
 testDispersion(socS_resid) # check for over-/underdispersion
@@ -91,7 +95,9 @@ plot(socS_resid) # plot diagnostics
 indS_mod <- lmer(indS ~ (DA + Ser + OA + TA + Glu + age)^2
                  + (DA + Ser + OA + TA + Glu|hive)
                  + (DA + Ser + OA + TA + Glu|trial),
-                 data = scaled_als)
+                 data = scaled_als,
+                 control = lmerControl(optimizer = "bobyqa",
+                                       optCtrl = list(maxfun = 1e6)))
 
 indS_resid <- simulateResiduals(indS_mod, n=1000)
 testDispersion(indS_resid)
@@ -101,7 +107,9 @@ plot(indS_resid)
 socM_mod <- lmer(socM ~ (DA + Ser + OA + TA + Glu + age)^2
                  + (DA + Ser + OA + TA + Glu |hive)
                  + (DA + Ser + OA + TA + Glu |trial),
-                 data = scaled_als)
+                 data = scaled_als,
+                 control = lmerControl(optimizer = "bobyqa",
+                                       optCtrl = list(maxfun = 1e6)))
 
 socM_resid <- simulateResiduals(socM_mod, n=1000)
 testDispersion(socM_resid)
@@ -111,7 +119,9 @@ plot(socM_resid)
 indM_mod <- lmer(indM ~ (DA + Ser + OA + TA + Glu + age)^2
                  + (DA + Ser + OA + TA + Glu|hive)
                  + (DA + Ser + OA + TA + Glu|trial),
-                 data = scaled_als)
+                 data = scaled_als,
+                 control = lmerControl(optimizer = "bobyqa",
+                                       optCtrl = list(maxfun = 1e6)))
 
 indM_resid <- simulateResiduals(indM_mod, n=1000)
 testDispersion(indM_resid)
@@ -125,22 +135,30 @@ plot(indM_resid)
 socS_mod2 <- lmer(socS ~ DA + Ser + OA + TA + Glu + age
                   + (DA + Ser + OA + TA + Glu|hive)
                   + (DA + Ser + OA + TA + Glu|trial),
-                  data = scaled_als)
+                  data = scaled_als,
+                  control = lmerControl(optimizer = "bobyqa",
+                                        optCtrl = list(maxfun = 1e6)))
 
 indS_mod2 <- lmer(indS ~ DA + Ser + OA + TA + Glu + age
                   + (DA + Ser + OA + TA + Glu|hive)
                   + (DA + Ser + OA + TA + Glu|trial),
-                  data = scaled_als)
+                  data = scaled_als,
+                  control = lmerControl(optimizer = "bobyqa",
+                                        optCtrl = list(maxfun = 1e6)))
 
 socM_mod2 <- lmer(socM ~ DA + Ser + OA + TA + Glu + age
                   + (DA + Ser + OA + TA + Glu|hive)
                   + (DA + Ser + OA + TA + Glu|trial),
-                  data = scaled_als)
+                  data = scaled_als,
+                  control = lmerControl(optimizer = "bobyqa",
+                                       optCtrl = list(maxfun = 1e6)))
 
 indM_mod2 <- lmer(indM ~ DA + Ser + OA + TA + Glu + age
                   + (DA + Ser + OA + TA + Glu|hive)
                   + (DA + Ser + OA + TA + Glu|trial),
-                  data = scaled_als)
+                  data = scaled_als,
+                  control = lmerControl(optimizer = "bobyqa",
+                                        optCtrl = list(maxfun = 1e6)))
 
 ################################################################################
 # Comparing LMMs with interactions with the ones without interactions using LRTs
