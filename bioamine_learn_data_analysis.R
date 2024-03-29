@@ -160,7 +160,7 @@ indM_est <- tidy(indM_mod, conf.int = TRUE, effects = "fixed") %>%
 
 # term labels for y-axis in plots
 y_label <- rev(c("DA" = "DA", 
-                 "5-HT" = "5-HT", 
+                 "Ser" = "5-HT", 
                  "OA" = "OA", 
                  "Glu" = "Glu", 
                  "DA:Ser" = "DA \u00D7 5-HT",
