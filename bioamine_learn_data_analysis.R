@@ -238,7 +238,7 @@ indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars
   theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
                                    size = c(8, 6, 8, rep(6, 7))))
 
-png("lmm_estimates.png", width=2000, height=2000, res=300)
+png("lmm_estimates.png", width=2500, height=2000, res=300)
 # arranging aa plots in one figure and removing x-axis title
 comb_plots <- ggarrange(indS_plot + rremove("ylab") + rremove("xlab"), 
                         indM_plot + rremove("y.text") + rremove("xlab"), 
