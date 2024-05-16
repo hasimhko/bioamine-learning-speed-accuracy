@@ -21,6 +21,10 @@ als <- read.csv("bioamine_learn_data.csv")
 als$hive <- as.factor(als$hive)
 als$trial <- as.factor(als$trial)
 
+###############################################################################
+# Building LMMs with interactions
+###############################################################################
+
 # standardize data for LMMs
 scaled_als <- data.frame("DA" = scale(als$DA, TRUE, TRUE),
                          "Ser" = scale(als$Ser, TRUE, TRUE),
@@ -35,11 +39,7 @@ scaled_als <- data.frame("DA" = scale(als$DA, TRUE, TRUE),
                          "hive" = als$hive,
                          "trial" = als$trial)
 
-###############################################################################
-# Building LMMs with interactions
-###############################################################################
-
-set.seed(1)
+set.seed(1) # for reproducibility
 
 socS_mod <- lmer(socS ~ (DA + Ser + OA + TA + Glu + age)^2
                  + (DA + Ser + OA + TA + Glu |hive)
@@ -141,10 +141,10 @@ indM_mod2@optinfo$conv # check for optimizer convergence
 # Comparing LMMs with interactions with the ones without interactions using LRTs
 ################################################################################
 
-anova(refitML(socS_mod), socS_mod2, test = "LRT")
-anova(indS_mod, indS_mod2, test = "LRT")
-anova(socM_mod, socM_mod2, test = "LRT")
-anova(indM_mod, indM_mod2, test = "LRT")
+anova(update(socS_mod, REML = FALSE), update(socS_mod2, REML = FALSE))
+anova(update(indS_mod, REML = FALSE), update(indS_mod2, REML = FALSE))
+anova(update(socM_mod, REML = FALSE), update(socM_mod2, REML = FALSE))
+anova(update(indM_mod, REML = FALSE), update(indM_mod2, REML = FALSE))
 
 ################################################################################
 # Extracting and plotting fixed effects from LMMs
