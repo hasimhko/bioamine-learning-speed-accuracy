@@ -9,6 +9,7 @@ library(ggpubr) # for creating multi-panel figures
 library(ggplot2) # for plots
 library(ggsci) # for npg palette
 library(dplyr) # for wrangling datasets
+library(tidyr) # for pivoting dataframes
 
 ###############################################################################
 # Data manipulation
@@ -20,6 +21,43 @@ als <- read.csv("bioamine_learn_data.csv")
 # re-assign factors 
 als$hive <- as.factor(als$hive)
 als$trial <- as.factor(als$trial)
+
+###############################################################################
+# Behavioral data analysis
+###############################################################################
+
+# reshape dataframe
+als_accuracy <- als %>%
+  pivot_longer(c("socM", "indM"),
+               names_to = "accuracy",
+               values_to = "value") %>%
+  select(c("accuracy", "value")) %>% # select learning accuracy scores
+  group_by(accuracy) %>%
+  mutate(mean = mean(value)) %>% # calculate averages
+  ungroup
+
+# plot max. learning accuracy in individual and social contexts
+ggplot(als_accuracy, aes(x = value, fill = accuracy)) +
+  geom_histogram(position = "identity", bins = 40, color = "white") +
+  labs(title = "Two-sided Kolmogorov-Smirnov test: D = 0.32, p-value = 0.03", 
+       x = "Accuracy", 
+       y = "Number of bees", 
+       fill = "") +
+  scale_fill_manual(limits = c("indM", "socM"), 
+                    labels = c("Individual", "Social"), 
+                    values = c("#E64B35FF", "#4DBBD5FF")) +
+  scale_x_continuous(breaks = seq(0, 1, 0.1), 
+                     labels = as.character(seq(0, 1, 0.1))) +
+  geom_vline(aes(xintercept = mean), 
+             linetype = "dashed") + 
+  geom_vline(aes(xintercept = 0.5), 
+             linetype = "dotted") + 
+  facet_wrap(factor(accuracy, 
+                    levels = c("indM", "socM"), 
+                    labels = c("Individual", "Social"))~., 
+             nrow = 2) +
+  theme_bw() +
+  theme(legend.position = "none", plot.title = element_text(hjust=0.5))
 
 ###############################################################################
 # Building LMMs with interactions
