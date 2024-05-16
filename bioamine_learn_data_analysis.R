@@ -59,6 +59,15 @@ ggplot(als_accuracy, aes(x = value, fill = accuracy)) +
   theme_bw() +
   theme(legend.position = "none", plot.title = element_text(hjust=0.5))
 
+# statistical tests
+## differences in distribution
+### two-sided KS test
+ks.test(als$socM, als$indM)
+## mean max. learning accuracy in individual and social contexts > 0.5
+### one-sample t-test
+t.test(als$socM, mu = 0.5, alternative = "greater")
+t.test(als$indM, mu = 0.5, alternative = "greater")
+
 ###############################################################################
 # Building LMMs with interactions
 ###############################################################################
