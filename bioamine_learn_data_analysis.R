@@ -16,14 +16,14 @@ library(tidyr) # for pivoting dataframes
 ###############################################################################
 
 # import data
-als <- read.csv("bioamine_learn_data.csv")
+als <- read.csv("BA_Data.csv")
 
 # re-assign factors 
 als$hive <- as.factor(als$hive)
 als$trial <- as.factor(als$trial)
 
 ###############################################################################
-# Behavioral data analysis
+# Behavioral data analysis - tradeoff
 ###############################################################################
 
 # reshape dataframe
@@ -69,7 +69,7 @@ t.test(als$socM, mu = 0.5, alternative = "greater")
 t.test(als$indM, mu = 0.5, alternative = "greater")
 
 ###############################################################################
-# Building LMMs with interactions
+# Building LMMs with interactions for biogenic amines
 ###############################################################################
 
 # standardize data for LMMs
