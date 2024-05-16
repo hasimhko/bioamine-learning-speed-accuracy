@@ -23,7 +23,7 @@ als$hive <- as.factor(als$hive)
 als$trial <- as.factor(als$trial)
 
 ###############################################################################
-# Behavioral data analysis - tradeoff
+# Distribution of max. learning accuracy in individual and social contexts
 ###############################################################################
 
 # reshape dataframe
@@ -67,6 +67,28 @@ ks.test(als$socM, als$indM)
 ### one-sample t-test
 t.test(als$socM, mu = 0.5, alternative = "greater")
 t.test(als$indM, mu = 0.5, alternative = "greater")
+
+###############################################################################
+# Fast vs. accurate learners in individual and social contexts
+###############################################################################
+
+learnSpdAcc_tbl <- data.frame(learnSpd = c("Individual", "Social", "Individual", "Social"),
+                              learnAcc = c("Individual", "Individual", "Social", "Social"),
+                              count = c(round(prop.table(table(als$learnSpd, als$learnAcc), 1)*100, 2)))
+
+ggplot(learnSpdAcc_tbl, aes(x = learnSpd, y = learnAcc, fill = as.factor(count))) +
+  geom_tile() +
+  scale_fill_manual(values = c("#4DBBD5FF", "#4DBBD5FF", "#E64B35FF", "#E64B35FF")) +
+  geom_text(aes(label = paste0(count, "%")), vjust = 1) +
+  xlab("Fast learning speed") +
+  ylab("High learning accuracy") +
+  ggtitle("") +
+  theme_bw() + 
+  theme(legend.position = "none", panel.grid = element_blank(),
+        axis.text = element_text(color = "black", size = 12),
+        axis.title = element_text(size = 14))
+
+fisher.test(als$learnSpd, als$learnAcc)
 
 ###############################################################################
 # Building LMMs with interactions for biogenic amines
