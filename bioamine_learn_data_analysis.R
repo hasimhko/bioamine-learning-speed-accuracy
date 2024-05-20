@@ -37,9 +37,10 @@ als_accuracy <- als %>%
   ungroup
 
 # plot max. learning accuracy in individual and social contexts
+png("fig2_accuracy_dist.png", width=2000, height=1500, res=300)
 ggplot(als_accuracy, aes(x = value, fill = accuracy)) +
   geom_histogram(position = "identity", bins = 40, color = "white") +
-  labs(title = "Two-sided Kolmogorov-Smirnov test: D = 0.32, p-value = 0.03", 
+  labs(title = "", 
        x = "Accuracy", 
        y = "Number of bees", 
        fill = "") +
@@ -58,6 +59,7 @@ ggplot(als_accuracy, aes(x = value, fill = accuracy)) +
              nrow = 2) +
   theme_bw() +
   theme(legend.position = "none", plot.title = element_text(hjust=0.5))
+dev.off()
 
 # statistical tests
 ## differences in distribution
@@ -76,6 +78,7 @@ learnSpdAcc_tbl <- data.frame(learnSpd = c("Individual", "Social", "Individual",
                               learnAcc = c("Individual", "Individual", "Social", "Social"),
                               count = c(round(prop.table(table(als$learnSpd, als$learnAcc), 1)*100, 2)))
 
+png("fig1_cont_tbl.png", width=1500, height=1000, res=300)
 ggplot(learnSpdAcc_tbl, aes(x = learnSpd, y = learnAcc, fill = as.factor(count))) +
   geom_tile() +
   scale_fill_manual(values = c("#4DBBD5FF", "#4DBBD5FF", "#E64B35FF", "#E64B35FF")) +
@@ -85,8 +88,10 @@ ggplot(learnSpdAcc_tbl, aes(x = learnSpd, y = learnAcc, fill = as.factor(count))
   ggtitle("") +
   theme_bw() + 
   theme(legend.position = "none", panel.grid = element_blank(),
-        axis.text = element_text(color = "black", size = 12),
-        axis.title = element_text(size = 14))
+        # axis.text = element_text(color = "black", size = 12),
+        # axis.title = element_text(size = 14)
+        )
+dev.off()
 
 fisher.test(als$learnSpd, als$learnAcc)
 
