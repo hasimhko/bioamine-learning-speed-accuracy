@@ -308,7 +308,7 @@ socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
-  scale_color_npg(guide="none") +
+  scale_color_manual(values=c("neg"="black", pos="grey"), guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Social Learning Speed") +
   lmm_plot_theme +
@@ -321,7 +321,7 @@ indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
-  scale_color_npg(guide="none") +
+  scale_color_manual(values=c("neg"="black", pos="grey"), guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Individual Learning Speed") +
   lmm_plot_theme +
@@ -334,7 +334,7 @@ socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
-  scale_color_npg(guide="none") +
+  scale_color_manual(values=c("neg"="black", pos="grey"), guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Social Learning Accuracy") +
   lmm_plot_theme +
@@ -347,7 +347,7 @@ indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars
   geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
-  scale_color_npg(guide="none") +
+  scale_color_manual(values=c("neg"="black", pos="grey"), guide="none") +
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Individual Learning Accuracy") +
   lmm_plot_theme +
