@@ -272,14 +272,19 @@ indM_est <- tidy(indM_mod, conf.int = TRUE, effects = "fixed") %>%
 # term labels for y-axis in plots
 y_label <- rev(c("DA" = "DA", 
                  "Ser" = "5-HT", 
-                 "OA" = "OA", 
+                 "OA" = "OA",
+                 "TA" = "TA",
                  "Glu" = "Glu", 
                  "DA:Ser" = "DA \u00D7 5-HT",
-                 "DA:OA" = "DA \u00D7 OA", 
+                 "DA:OA" = "DA \u00D7 OA",
+                 "DA:TA" = "DA \u00D7 TA",
                  "DA:Glu" = "DA \u00D7 Glu", 
-                 "Ser:OA" = "5-HT \u00D7 OA", 
+                 "Ser:OA" = "5-HT \u00D7 OA",
+                 "Ser:TA" = "5-HT \u00D7 TA",
                  "Ser:Glu" = "5-HT \u00D7 Glu", 
-                 "OA:Glu" = "OA \u00D7 Glu"))
+                 "OA:TA" = "OA \u00D7 TA",
+                 "OA:Glu" = "OA \u00D7 Glu",
+                 "TA:Glu" = "TA \u00D7 Glu"))
 
 # custom ggplot theme
 lmm_plot_theme <- theme(panel.background=element_blank(), 
@@ -307,8 +312,8 @@ socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Social Learning Speed") +
   lmm_plot_theme +
-  theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
-                       size = c(8, 6, 8, rep(6, 7))))
+  theme(axis.text.y = element_text(face = c("plain", "bold", rep("plain", 3), "bold", rep('plain', 9)),
+                       size = c(6, 8, rep(6, 3), 8, rep(6, 9))))
 
 # indS LMM term estimates and significance
 indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
