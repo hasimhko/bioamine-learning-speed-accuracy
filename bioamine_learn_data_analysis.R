@@ -293,8 +293,8 @@ lmm_plot_theme <- theme(panel.background=element_blank(),
                         panel.grid.major=element_line(color="gray80", size=0.1, linetype=1), 
                         panel.grid.minor=element_line(color="gray80", size=0.1, linetype=1),
                         strip.background=element_blank(),
-                        axis.text.x=element_text(color="black", size=6),
-                        axis.text.y=element_text(color="black", size=6),
+                        axis.text.x=element_text(color="black", size=8),
+                        axis.text.y=element_text(color="black", size=8),
                         axis.title.x=element_text(size=8),
                         axis.title.y=element_text(size=8),
                         axis.ticks=element_blank(),
@@ -304,7 +304,7 @@ lmm_plot_theme <- theme(panel.background=element_blank(),
 
 # socS LMM term estimates and significance
 socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
-  geom_point(size=1.25) + ylab("") + xlab("Estimate") + 
+  geom_point(size=2) + ylab("") + xlab("Estimate") + 
   geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
@@ -312,12 +312,11 @@ socS_plot <- ggplot(socS_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Social Learning Speed") +
   lmm_plot_theme +
-  theme(axis.text.y = element_text(face = c("plain", "bold", rep("plain", 3), "bold", rep('plain', 9)),
-                       size = c(6, 8, rep(6, 3), 8, rep(6, 9))))
+  theme(axis.text.y = element_text(face = c("plain", "bold", rep("plain", 3), "bold", rep('plain', 9))))
 
 # indS LMM term estimates and significance
 indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
-  geom_point(size=1.25) + ylab("") + xlab("Estimate") + 
+  geom_point(size=2) + ylab("") + xlab("Estimate") + 
   geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
@@ -325,12 +324,11 @@ indS_plot <- ggplot(indS_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Individual Learning Speed") +
   lmm_plot_theme +
-  theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
-                                   size = c(8, 6, 8, rep(6, 7))))
+  theme(axis.text.y = element_text(face = c("plain", "bold", rep("plain", 3), "bold", rep('plain', 9))))
 
 # socM LMM term estimates and significance
 socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
-  geom_point(size=1.25) + ylab("") + xlab("Estimate") + 
+  geom_point(size=2) + ylab("") + xlab("Estimate") + 
   geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
@@ -338,12 +336,11 @@ socM_plot <- ggplot(socM_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Social Learning Accuracy") +
   lmm_plot_theme +
-  theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
-                                   size = c(8, 6, 8, rep(6, 7))))
+  theme(axis.text.y = element_text(face = c("plain", "bold", rep("plain", 3), "bold", rep('plain', 9))))
 
 # indM LMM term estimates and significance
 indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars)) +
-  geom_point(size=1.25) + ylab("") + xlab("Estimate") + 
+  geom_point(size=2) + ylab("") + xlab("Estimate") + 
   geom_text(vjust=0, nudge_y=-0.05, size=4, color=1) +
   geom_errorbar(aes(xmin=conf.low, xmax=conf.high, width=0.3)) +
   geom_vline(xintercept=0, linetype="dashed", color = "black", size=0.3) + 
@@ -351,10 +348,9 @@ indM_plot <- ggplot(indM_est, aes(x=estimate, y=term, color=group, label=p.stars
   scale_y_discrete(limits = names(y_label), labels = y_label) +
   ggtitle("Individual Learning Accuracy") +
   lmm_plot_theme +
-  theme(axis.text.y = element_text(face = c("bold", "plain", "bold", rep('plain', 7)),
-                                   size = c(8, 6, 8, rep(6, 7))))
+  theme(axis.text.y = element_text(face = c("plain", "bold", rep("plain", 3), "bold", rep('plain', 9))))
 
-png("lmm_estimates.png", width=2500, height=2000, res=300)
+png("lmm_estimates.png", width=3000, height=2500, res=400)
 # arranging aa plots in one figure and removing x-axis title
 comb_plots <- ggarrange(indS_plot + rremove("ylab") + rremove("xlab"), 
                         indM_plot + rremove("y.text") + rremove("xlab"), 
@@ -363,5 +359,5 @@ comb_plots <- ggarrange(indS_plot + rremove("ylab") + rremove("xlab"),
                         labels="AUTO", ncol=2, nrow=2, font.label=list(size=10),
                         widths = c(1.1, 1, 1, 1))
 # adding a common x-axis title
-annotate_figure(comb_plots, bottom=text_grob("Estimate", hjust=0.5, size=8))
+annotate_figure(comb_plots, bottom=text_grob("Estimate", hjust=0.5, size=10))
 dev.off()
