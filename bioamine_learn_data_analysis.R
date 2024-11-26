@@ -11,6 +11,7 @@ library(ggsci) # for npg palette
 library(dplyr) # for wrangling datasets
 library(tidyr) # for pivoting dataframes
 library(patchwork)
+library(stringr)
 
 ###############################################################################
 # Data manipulation
@@ -29,19 +30,21 @@ als$trial <- as.factor(als$trial)
 
 # reshape dataframe
 als_speedAccuracy <- als %>%
-  pivot_longer(c("socM", "indM"), names_to = "accuracy", values_to = "accuracy_score") %>%
-  pivot_longer(c("socS", "indS"), names_to = "speed", values_to = "speed_score") %>%
-  select(c("accuracy", "speed", "accuracy_score", "speed_score")) %>% # select learning accuracy scores
-  group_by(accuracy) %>%
-  mutate(accuracy_mean = mean(accuracy_score)) %>% # calculate averages
+  pivot_longer(c("socM", "indM", "socS", "indS"), names_to = "var", values_to = "score") %>%
+  # pivot_longer(c("socS", "indS"), names_to = "speed", values_to = "speed_score") %>%
+  select(c("var", "score")) %>% # select learning accuracy scores
+  group_by(var) %>%
+  mutate(score_mean = mean(score)) %>% # calculate averages
   ungroup %>%
   group_by(speed) %>%
   mutate(speed_mean = mean(speed_score)) %>% # calculate averages
   ungroup
 
 # plot max. learning accuracy in individual and social contexts
-acc_dist <- ggplot(als_speedAccuracy, aes(x = accuracy_score, fill = accuracy)) +
-  geom_histogram(position = "dodge", bins = 20, color = "black") +
+acc_dist <- als_speedAccuracy %>%
+  filter(str_detect(var, "M")) %>%
+  ggplot(aes(x = score, fill = var)) +
+  geom_histogram(position = "dodge", bins = 15, color = "black") +
   labs(x = "Accuracy", y = "Number of bees") +
   scale_fill_manual(limits = c("indM", "socM"), 
                     labels = c("Individual", "Social"), 
@@ -49,33 +52,30 @@ acc_dist <- ggplot(als_speedAccuracy, aes(x = accuracy_score, fill = accuracy)) 
   scale_y_continuous(expand = c(0,0), 
                      limits = c(0, 14),
                      breaks = seq(0, 14, 2)) +
-  scale_x_continuous(breaks = seq(0, 1, 0.1), 
-                     labels = as.character(seq(0, 1, 0.1))) +
-  geom_vline(aes(xintercept = accuracy_mean, linetype=accuracy)) + 
+  scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+  geom_vline(aes(xintercept = score_mean, linetype=var)) + 
   geom_vline(aes(xintercept = 0.5), linetype = "solid") + 
   scale_linetype_manual(limits=c("indM", "socM"),
                         labels=c("Individual", "Social"),
                         values=c("dashed", "dotted")) +
-  # facet_wrap(factor(accuracy, 
-  #                   levels = c("indM", "socM"), 
-  #                   labels = c("Individual", "Social"))~., 
-  #            nrow = 2) +
   theme_classic() +
   theme(legend.position = "none",
         axis.title = element_text(size=12),
         axis.text = element_text(size=12, color = "black"))
 
-speed_dist <- ggplot(als_speedAccuracy, aes(x = speed_score, fill = speed)) +
+speed_dist <- als_speedAccuracy %>%
+  filter(str_detect(var, "S")) %>%
+  ggplot( aes(x = score, fill = var)) +
   geom_histogram(position = "dodge", bins = 25, color = "black") +
   labs(x = "Learning speed", y = "Number of bees") +
   scale_fill_manual(limits = c("indS", "socS"), 
                     labels = c("Individual", "Social"), 
                     values = c("white", "black")) +
   scale_y_continuous(expand = c(0,0), 
-                     limits = c(0, 14),
+                     limits = c(0, 9),
                      breaks = seq(0, 9, 1)) +
   scale_x_continuous(breaks = seq(-0.05, 0.13, 0.02)) +
-  geom_vline(aes(xintercept = speed_mean, linetype = speed)) + 
+  geom_vline(aes(xintercept = score_mean, linetype = var)) + 
   scale_linetype_manual(limits=c("indS", "socS"),
                         labels=c("Individual", "Social"),
                         values=c("dashed", "dotted")) +
@@ -87,7 +87,7 @@ speed_dist <- ggplot(als_speedAccuracy, aes(x = speed_score, fill = speed)) +
 png("fig2_accuracy_speed_dist.png", width=2000, height=2000, res=300)
 (acc_dist / speed_dist) + 
   plot_layout(guides = "collect") + 
-  plot_annotation(tag_levels = "A") & theme(legend.position = "top")
+  plot_annotation(tag_levels = "A")
 dev.off()
 
 # statistical tests
